@@ -13,7 +13,9 @@
 	</head>
 	<body>
 		<h1>Chirp</h1>
-		<form action='/translate' method='post'><input type=textarea name=text id=text autocomplete=off></input></form>
+		<form action='/translate' method='post'><input type=textarea name=text id=text autocomplete=off></input>
+		<a id=twitter class="twitter-share-button" href="https://twitter.com/share"> Tweet </a>
+		</form>
 
 		<style type="text/css" media="screen">
 			body { font-size: small; font-family:"lucida Grande", "lucida sans unicode", "myriad pro", arial, helvetica, sans-serif; }
@@ -29,12 +31,19 @@
 			a.checkspelling img { margin: 0 5px; border: 0; }
 		</style>
 		<script type="text/javascript" charset="utf-8">
+			//window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+		
 			jQuery(document).ready(function($) {
 				$('#text').spellcheck({events: 'keyup', url: '/spellcheck.php'});
+				$('#text').change(function(e) {
+					$('#twitter').attr({href: 'https://twitter.com/share?url=tw&text=' + encodeURIComponent($(this).val())});
+				});
+
 			});
 		</script>
 		<div>
 		Uses <a href="https://github.com/brandonaaron/jquery-spellcheck">jquery-spellcheck by brandonaaron</a>
 		</div>
+
 	</body>
 </html>
