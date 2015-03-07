@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spellresult error="0" clipped="0" charschecked="{{charschecked}}">
+{% for w in words %}
+<c o="{{w.o}}" l="{{w.l}}" s="{{w.s}}">{{w.options | safe}}</c>
+{% endfor %}
+
+</spellresult>
