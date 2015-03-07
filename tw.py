@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return "<form action='/translate' method='post'><input type=text name=text></input></form>"
+    return render_template('index.html')
 
 def shortest_syn(word):
     synset = wn.synsets(word)
@@ -21,7 +21,7 @@ def translate():
 
     s = ' '.join(shortest_syn(w) for w in text)
 
-    return render_template('index.html', text=s)
+    return render_template('results.html', text=s)
 
 
 if __name__ == '__main__':
