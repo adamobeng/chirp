@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from nltk.corpus import wordnet as wn
 import nltk.data
 
@@ -12,7 +12,7 @@ def shortest_syn(word):
     synset = wn.synsets(word)
     synnames = list(s.name().split('.')[0] for s in synset) + [word]
     shortest = min(synnames, key=len)
-    print word, synnames, shortest
+    print word, synnames, '=>', shortest
     return shortest
 
 @app.route('/translate', methods=['POST'])
@@ -21,7 +21,7 @@ def translate():
 
     s = ' '.join(shortest_syn(w) for w in text)
 
-    return s
+    return render_template('index.html', text=s)
 
 
 if __name__ == '__main__':
