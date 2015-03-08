@@ -24,19 +24,28 @@ def emoji_syn(word):
     else:
         return []
 
-def shortest_syn(word):
+def wn_syns(word, depth):
+    print 'word', depth
     synset = wn.synsets(word)
-    synnames = list(s.name().split('.')[0] for s in synset) + [word]
-    shortest = min(synnames, key=len)
+    synnames = list(i.name() for s in synset for i in s.lemmas() ) + [word]
+    if depth == 1:
+        return synnames
+    else:
+        return [j for s in synnames for j in wn_syns(s, depth-1)]
+
+def shortest_syn(word, depth=1):
+    synnames = wn_syns(word, depth)
+    shorter = set(i for i in synnames if len(i)<len(word))
+    shorter = sorted(shorter, key=len)
+    shorter = shorter[:10]
 
     es = emoji_syn(word)  # TODO Add emoji syn of synonyms
     
     is_sw = word in stopwords
 
-
     options = []
-    if (shortest != word) and len(shortest) < len(word):
-        options.append(shortest)
+    if shorter:
+        options.extend(shorter)
     if es:
         options.extend(es)
     if is_sw:
@@ -51,9 +60,11 @@ def shortest_syn(word):
 @app.route('/spellcheck.php', methods=['GET', 'POST'])
 def spellcheck():
     text = request.form.get('text') or request.args.get('text')
+    depth = request.args.get('depth') or 2
+
     wordsin = re.split('\W+', text) #TODO tokenize properly
 
-    wordsout = [{'o': text.find(w), 'l':len(w), 's':3, 'options': shortest_syn(w)} for w in wordsin if shortest_syn(w)]
+    wordsout = [{'o': text.find(w), 'l':len(w), 's':3, 'options': shortest_syn(w, depth)} for w in wordsin if shortest_syn(w)]
 
     return render_template('results.xml', words = wordsout, charschecked=len(text))
 
