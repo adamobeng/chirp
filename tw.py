@@ -39,7 +39,7 @@ def shortest_syn(word, depth=1):
     shorter = sorted(shorter, key=len)
     shorter = shorter[:10]
 
-    es = emoji_syn(word)  # TODO Add emoji syn of synonyms
+    es = set(i for word in synnames for i in emoji_syn(word))  # TODO Add emoji syn of synonyms
     
     is_sw = word in stopwords
 
@@ -51,7 +51,7 @@ def shortest_syn(word, depth=1):
     if is_sw:
         options.append('&#0;')
 
-    print word, synnames, '=>', options
+    print word, '=>', options
     if options:
         return ' '.join(options)
     else:
@@ -60,7 +60,7 @@ def shortest_syn(word, depth=1):
 @app.route('/spellcheck.php', methods=['GET', 'POST'])
 def spellcheck():
     text = request.form.get('text') or request.args.get('text')
-    depth = request.args.get('depth') or 2
+    depth = request.args.get('depth') or 1
 
     wordsin = re.split('\W+', text) #TODO tokenize properly
 
