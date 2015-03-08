@@ -3,8 +3,8 @@
 function textchange(e) {
 	$('#twitter').attr({href: 'https://twitter.com/share?url=tw&text=' + encodeURIComponent($(this).val())});
 	// http://stackoverflow.com/a/2848483
-	length = encodeURIComponent($(this).val()).replace(/%[A-F\d]{2}/g, 'U').length;
-	$('#length').text(length);
+	length = $(this).val().length;
+	$('#length').text(140-length);
 
 }
 jQuery(document).ready(function($) {

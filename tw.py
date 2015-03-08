@@ -5,6 +5,8 @@ import csv
 from collections import defaultdict
 import re
 from nltk.corpus import stopwords
+import unicodedata
+import cgi
 
 stopwords = stopwords.words('english')
 
@@ -23,6 +25,10 @@ def emoji_syn(word):
         return emojis[word]
     else:
         return []
+
+def unicode_len(word):
+    word = cgi.unescape(word)
+    return len(unicodedata.normalize('NFC', word))
 
 def wn_syns(word, depth):
     print 'word', depth
