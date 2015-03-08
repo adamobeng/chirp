@@ -2,10 +2,17 @@ from flask import Flask, request, render_template, url_for
 from nltk.corpus import wordnet as wn
 import nltk.data
 import csv
+from collections import defaultdict
+import re
+from nltk.corpus import stopwords
+
+stopwords = stopwords.words('english')
 
 app = Flask(__name__)
 
-emojis = {r[1]:r[0] for r in csv.reader(open('./emoji.tsv'), delimiter='\t')}
+emojis = defaultdict(list)
+for r in csv.reader(open('./emoji.tsv'), delimiter='\t'):
+    emojis[r[1]].append(r[0])
 
 @app.route('/')
 def hello_world():
@@ -13,7 +20,7 @@ def hello_world():
 
 def emoji_syn(word):
     if word in emojis:
-        return [emojis[word]]
+        return emojis[word]
     else:
         return []
 
@@ -22,27 +29,29 @@ def shortest_syn(word):
     synnames = list(s.name().split('.')[0] for s in synset) + [word]
     shortest = min(synnames, key=len)
 
-    es = emoji_syn(word)
-    print word, synnames, '=>', shortest, es
+    es = emoji_syn(word)  # TODO Add emoji syn of synonyms
+    
+    is_sw = word in stopwords
+
+
+    options = []
     if (shortest != word) and len(shortest) < len(word):
-        return '    '.join([shortest] + es)
-    elif es:
-        return es[0]
+        options.append(shortest)
+    if es:
+        options.extend(es)
+    if is_sw:
+        options.append('&#0;')
+
+    print word, synnames, '=>', options
+    if options:
+        return ' '.join(options)
     else:
         return None
-
-@app.route('/translate', methods=['POST'])
-def translate():
-    text = request.form.get('text') or request.args.get('text')
-    text =text.split(' ') #TODO tokenize properly
-
-    s = ' '.join(shortest_syn(w) for w in text)
-    return render_template('results.html', text=s)
 
 @app.route('/spellcheck.php', methods=['GET', 'POST'])
 def spellcheck():
     text = request.form.get('text') or request.args.get('text')
-    wordsin = text.split(' ') #TODO tokenize properly
+    wordsin = re.split('\W+', text) #TODO tokenize properly
 
     wordsout = [{'o': text.find(w), 'l':len(w), 's':3, 'options': shortest_syn(w)} for w in wordsin if shortest_syn(w)]
 
