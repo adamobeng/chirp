@@ -103,7 +103,9 @@ $.SpellChecker.prototype = {
             var $this = $(this), $parent = $this.parent();
             if ( !$this.is('.ignore') )
                 self.$element.val( self.$element.val().replace( $parent.find('dt').text(), $this.text() ) );
+		$(self.$element).change();
             $parent.remove();
+
             if ( $('#spellcheckresults').is(':empty') )
                 $('#spellcheckresults').remove();
             this.blur();
