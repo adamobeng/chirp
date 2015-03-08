@@ -42,7 +42,7 @@ $.SpellChecker = function(element, options) {
         events: 'keypress blur paste',
         url: 'spellcheck.php',
         ignorecaps: 1,
-        ignoredigits: 1
+        ignoredigits: 1,
     }, options);
     this.bindEvents();
 };
@@ -68,7 +68,10 @@ $.SpellChecker.prototype = {
             text: this.text, 
             lang: this.options.lang,
             ignorecaps: this.options.ignorecaps,
-            ignoredigits: this.options.ignoredigits
+            ignoredigits: this.options.ignoredigits,
+	    depth: $('#depth').val(),
+	    emojionly: $('#emoji').val()
+
         }, function(r) { self.parseResults(r); });
     },
     

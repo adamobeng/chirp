@@ -31,16 +31,16 @@ def unicode_len(word):
     return len(unicodedata.normalize('NFC', word))
 
 def wn_syns(word, depth):
-    print 'word', depth
-    synset = wn.synsets(word)
-    synnames = list(i.name() for s in synset for i in s.lemmas() ) + [word]
-    if depth == 1:
-        return synnames
+    lemmas = wn.lemmas(word)
+    lemnames = list(i.synset().lemmas()[0].name() for i in lemmas)
+    if depth == 0:
+        return lemnames
     else:
-        return [j for s in synnames for j in wn_syns(s, depth-1)]
+        return [j for s in lemnames for j in wn_syns(s, depth-1)]
 
-def shortest_syn(word, depth=1):
-    synnames = wn_syns(word, depth)
+def shortest_syn(word, depth=0, emojionly=False):
+    if emojionly: depth=max(depth, 3)
+    synnames = wn_syns(word, depth) 
     shorter = set(i for i in synnames if len(i)<len(word))
     shorter = sorted(shorter, key=len)
     shorter = shorter[:10]
@@ -57,7 +57,10 @@ def shortest_syn(word, depth=1):
     if is_sw:
         options.append('&#0;')
 
-    print word, '=>', options
+    if emojionly:
+        options=list(es)
+
+    print word, '=>', options, (depth, emojionly)
     if options:
         return ' '.join(options)
     else:
@@ -66,11 +69,12 @@ def shortest_syn(word, depth=1):
 @app.route('/spellcheck.php', methods=['GET', 'POST'])
 def spellcheck():
     text = request.form.get('text') or request.args.get('text')
-    depth = request.args.get('depth') or 1
+    depth = int(request.args.get('depth')) or 0
+    emojionly = (request.args.get('emojionly') == 'true') or False
 
     wordsin = re.split('\W+', text) #TODO tokenize properly
 
-    wordsout = [{'o': text.find(w), 'l':len(w), 's':3, 'options': shortest_syn(w, depth)} for w in wordsin if shortest_syn(w)]
+    wordsout = [{'o': text.find(w), 'l':len(w), 's':3, 'options': shortest_syn(w, depth, emojionly)} for w in wordsin if shortest_syn(w)]
 
     return render_template('results.xml', words = wordsout, charschecked=len(text))
 

@@ -10,4 +10,15 @@ jQuery(document).ready(function($) {
 	$('#text').spellcheck({events: 'keyup', url: '/spellcheck.php'});
 	$('#text').change(textchange);
 	$('#text').keyup(textchange);
+
+	$( "#slider" ).slider({
+		value:1,
+		min: 1,
+		max: 5,
+		step: 1,
+		slide: function( event, ui ) {
+			$( "#depth" ).val( ui.value );
+			//$('#text').trigger('keyup');
+		}
+	});
 });
