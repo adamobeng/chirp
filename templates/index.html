@@ -1,39 +1,109 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset=utf-8 />
-		<title></title>
-		<link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>&#x1f424;&#x1f3b6;</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="static/master.css">
+    <link rel="stylesheet" href="static/tuktuk.css">
+    <link rel="stylesheet" href="static/tuktuk.theme.default.css">
+    <!-- TUKTUK.WIDGETS -->
+    <link rel="stylesheet" href="static/tuktuk.icons.css">
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="/static/s.js"></script>
-		<!--[if IE]>
-	  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	  <![endif]-->
-	</head>
-	<body>
-		<h1>Chirp</h1>
-		<form action='/translate' method='post'><input type=textarea name=text id=text autocomplete=off></input>
-			<span id=length></span>
-		<a id=twitter class="twitter-share-button" href="https://twitter.com/share"> Tweet </a>
+		<script type="text/javascript" src="/static/tw.js"></script>
+
+    <style>
+        body > header .logo {
+            margin-right: 1rem;
+            max-height: 3rem;
+            border-radius: .25rem;}
+    </style>
+</head>
+<body>
+    <!-- ========================== HEADER ========================== -->
+    <header class="bck margin-top margin-bottom">
+        <div class="row">
+            <div class="column_8">
+                <!--
+		<img src="../images/tuktuk.png" class="logo on-left"/>
+		-->
+                <h2 class="text">&#x1f424;&#x1f3b6;</h2> <h4 id=subtitle class="text">psycholinguistic compression utilised apropos textual matter</h4>
+            </div>
+        </div>
+    </header>
+
+    <section class="bck theme landing text center">
+        <div class="row">
+            <div class="column_6 offset_3 form">
+		<form action='/translate' method='post'>
+			<fieldset>
+			<textarea class="text large" row type=textarea name=text id=text autocomplete=off></textarea>
+			</fieldset>
+			<label class="text large" id=length for=text>140 </label>
 		</form>
+		<a id=twitter class="twitter-share-button button large" href="https://twitter.com/share"> Tweet </a>
+            </div>
 
-		<style type="text/css" media="screen">
-			body { font-size: small; font-family:"lucida Grande", "lucida sans unicode", "myriad pro", arial, helvetica, sans-serif; }
-			input, textarea { width: 250px; }
-			textarea { height: 100px; }
-			#spellcheckresults { position: absolute; background: #fff; margin: 0; border: 1px solid #000; padding: 5px; }
-			#spellcheckresults dl { margin: 0; padding: 0; }
-			#spellcheckresults dl dt { float: left; clear: left; margin: 3px 0; padding: 0; font-weight: bold; }
-			#spellcheckresults dl dd { float: left; margin: 3px 10px; padding: 0; cursor: pointer; color: green; }
-			#spellcheckresults dl dd.ignore { color: red; font-style: italic; }
+        </div>
+        <!--
+		<div class="row">
+            <div class="column_6 offset_3 form">
+                <input type="email" id="mail" class="large" placeholder="Your email address">
+                <button class="button large ">Sign Up</button>
+            </div>
+        </div>
+	-->
+    </section>
 
-			a.checkspelling {  }
-			a.checkspelling img { margin: 0 5px; border: 0; }
-		</style>
-		<div>
-			Uses <a href="https://github.com/brandonaaron/jquery-spellcheck">jquery-spellcheck by brandonaaron</a>, thanks <a href="https://github.com/jzf2101">JZ Forde</a>
+    <!--
+    <section class="bck dark padding text center">
+        <div class="row padding-bottom">
+            <div class="column_10 offset_1">
+                <h1 class="text book color theme">Lorem ipsum dolor sit amet</h1>
+                <h4>
+                    Quam sunt quos minima consequatur dolore quaerat vel recusandae numquam ab qui dignissimos doloribus molestiae pariatur magnam libero nam consectetur asperiores maiores.
+                </h4>
+            </div>
+        </div>
+
+        <div class="row padding-top">
+            <div class="column_3">
+                <h2 class="icon user"></h2>
+                <h5 class="text normal">Lorem ipsum dolor sit</h5>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, ipsam, explicabo, fugit in magni delectus aliquid.</small>
+            </div>
+            <div class="column_3">
+                <h2 class="icon group"></h2>
+                <h5 class="text normal">Lorem ipsum dolor sit</h5>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, ipsam, explicabo, fugit in magni delectus aliquid.</small>
+            </div>
+            <div class="column_3">
+                <h2 class="icon cog"></h2>
+                <h5 class="text normal">Lorem ipsum dolor sit</h5>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, ipsam, explicabo, fugit in magni delectus aliquid.</small>
+            </div>
+            <div class="column_3">
+                <h2 class="icon twitter"></h2>
+                <h5 class="text normal">Lorem ipsum dolor sit</h5>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, ipsam, explicabo, fugit in magni delectus aliquid.</small>
+            </div>
+        </div>
+    </section>
+    -->
+    <footer class="padding align center text small bck light">
+        <div class="row">
+            <div class="offset_3 column_6">
+			Uses <a class="text color theme" href="https://github.com/brandonaaron/jquery-spellcheck">jquery-spellcheck by brandonaaron</a>, thanks <a class="text color theme"href="https://github.com/jzf2101">JZ Forde</a>, theme by <a href="http://tapquo.com" class="text color theme">tapquo</a>
+
 		</div>
+            </div>
+        </div>
+    </footer>
 
-	</body>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="static/tuktuk.js"></script>
+</body>
 </html>

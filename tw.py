@@ -18,7 +18,7 @@ for r in csv.reader(open('./emoji.tsv'), delimiter='\t'):
 
 @app.route('/')
 def hello_world():
-    return render_template('landing.html')
+    return render_template('index.html')
 
 def emoji_syn(word):
     if word in emojis:

@@ -5,10 +5,9 @@ function textchange(e) {
 	// http://stackoverflow.com/a/2848483
 	length = $(this).val().length;
 	$('#length').text(140-length);
-	console.log($(this).val());
-	console.log(e);
 }
 jQuery(document).ready(function($) {
 	$('#text').spellcheck({events: 'keyup', url: '/spellcheck.php'});
 	$('#text').change(textchange);
+	$('#text').keyup(textchange);
 });
